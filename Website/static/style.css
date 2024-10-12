@@ -1,0 +1,209 @@
+/*variables start*/
+:root {
+    --primary: #1ed760;
+    --secondary: #121212;
+    --third-color: #ffffff;
+    --fourth-color: #1ed760;
+    --fifth-color: #1ed760;
+    --light: #ffffff;
+    --dark: #121212;
+    --gray-dark: #181818;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+body {
+    background-color: var(--primary);
+}
+.body .page-container {
+    min-height: calc( 100vh - 50px);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+/*searchbar start*/
+#searchbar-cont {
+    padding: 0;
+}
+
+#searchbar-cont .input-cont {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchbar-input {
+    border: 0;
+    padding: 5px 15px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.search-button {
+    border: 0;
+    padding: 5px 15px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.searchbar-input:focus {
+    outline: none;
+}
+
+/*searchbar end*/
+
+/*menu start*/
+.menu {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0;
+    height: 50px;
+}
+.menu > div {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.menu a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: var(--secondary);
+    text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 500;
+}
+/*menu end*/
+
+/*results start*/
+.image-cont {
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.result-cont .image-cont img {
+    max-width: 100%;
+    max-height: 100%;
+    image-rendering: pixelated;
+}
+.result-match {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background: #12121280;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.result-match .details-cont {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    color: var(--third-color);
+}
+.result-cont {
+    margin: 0 auto;
+    padding: 15px;
+}
+.result-match .details-cont span:first-child {
+    min-width: 60px;
+    display: inline-block;
+}
+
+.result-recommend {
+    background: #12121280;
+    padding: 15px;
+    border-radius: 20px;
+    margin: 15px auto;
+}
+.result-recommend .similar-text {
+    color: var(--third-color);
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.rec-cont {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 7.5px 10px;
+    background: #ffffff40;
+    border-radius: 10px;
+    margin: 7.5px auto;
+}
+
+.rec-cont .details-cont {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    color: var(--third-color);
+}
+
+.rec-cont .details-cont div span:first-child {
+    display: none;
+}
+/*results end*/
+
+/*History page start*/
+#searchHistory ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    padding: 0;
+}
+#history-cont .result-match {
+    margin: 7.5px auto;
+}
+/*History page end*/
+/*Responsive stuff*/
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 992px) {
+    
+}
+
+@media (min-width: 1200px) {
+    
+}

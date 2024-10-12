@@ -1,0 +1,67 @@
+1. First create a VM and the necessary firewall configuration.
+
+2. Install the necessary packages:
+
+    sudo apt update
+    sudo apt install python3-pip python3-dev nginx git
+
+3. Download the packages from git
+
+    git clone https://github.com/Kev-Cui/IO_group_project_music_recommender.git
+    cd IO_group_project_music_recommender
+
+
+4. Install dependencies:
+
+    pip3 install flask pickle spotipy pandas
+
+
+4. Test the app:
+    python3 recommender.py
+
+Run the Flask application:
+    pip3 install gunicorn
+    gunicorn --bind 0.0.0.0:8000 recommender:app
+
+
+5. Configure Nginx as a Reverse Proxy
+
+Create the Nginx configuration file:
+    sudo nano /etc/nginx/sites-available/recommender
+
+Config file:
+    server {
+        listen 80;
+        server_name 34.91.162.102; #EXTERNAL_IP
+
+        root /var/www/html;
+
+        location / {
+            proxy_pass http://10.164.0.2:8000; #INTERNAL_IP:SERVICEPORT
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+Enable the Nginx configuration:
+    sudo ln -s /etc/nginx/sites-available/recommender /etc/nginx/sites-enabled
+
+Test the configuration file:
+    sudo nginx -t
+
+Restart Nginx:
+    sudo systemctl restart nginx
+
+
+6. RUN THE FLASK SERVER TO MAKE THE SITE AVAILABLE:
+    gunicorn --workers 3 --bind 0.0.0.0:8000 recommender:app
+
+
+
+------------------------------------OR--------------------------------------------------
+
+chmod +x setup_recommender.sh
+./recommender_server_install.sh
+
