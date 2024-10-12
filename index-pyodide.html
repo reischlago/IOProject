@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/jquery-3.6.0.min.js"> </script>
+	<script src="js/bootstrap.min.js"> </script>
+	<script src="js/script.js"> </script>
+	<!--script src="js/pyodide.js"></script-->
+	<script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>
+    <title>Spotify Song Recommender</title>
+</head>
+<body class="body main-page" style="height: 100%;">
+	<div id="topHeader" class="top-header">
+		<div class="container">
+			<div class="row">
+				<div class="menu col-12">
+					<div class="col-12 col-md-3 col-lg-2"><a href="index.html">Home</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="history.html">History</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="#">Help</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="#">Profile</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-container">
+		<div class="container" id="searchbar-cont">
+			<div class="row">
+				<button id="runPythonBtn" onclick="loadPyodideAndPackages()">Run Python</button>
+				<div id="result"></div>
+				<div class="col-12 col-md-10 col-lg-8 input-cont">
+					<input class="col-9 searchbar-input" type="search" placeholder="Type the title of the song here" id="songInput"></input>
+					<button class="col-2 search-button" onclick="recommender()">Look</button>
+                </div>
+				<div class="col-12 col-md-10 col-lg-8 result-cont">
+					<div class="result-match">
+						<div class="col-2 image-cont">
+							<img src="Pics/alors-on-danse-cover.jpeg" alt="album cover">
+						</div>
+						<div class="col-10 details-cont">
+							<div class="col-12 title"><span>Title: </span><span>Alors on Danse</span></div>
+							<div class="col-6 artist"><span>Artist: </span><span>Stromae</span></div>
+							<div class="col-6 length"><span>Length: </span><span>3:26</span></div>
+							<div class="col-6 album"><span>Album: </span><span>Cheese</span></div>
+							<div class="col-6 year"><span>Year: </span><span>2010</span></div>
+							<div class="col-6 genre"><span>Genre: </span><span>Hip House</span></div>
+							<div class="col-6 label"><span>Label: </span><span>Vertigo</span></div>
+						</div>
+					</div>
+					<div class="result-recommend">
+						<div class="similar-text">Similar songs</div>
+						<div id="result1" class="rec-cont">
+							<div class="col-2 col-lg-1 image-cont">
+								<img src="Pics/alors-on-danse-cover.jpeg" alt="album cover">
+							</div>
+							<div class="col-10 col-lg-11 details-cont">
+								<div class="col-12 title"><span>Title: </span><span>Alors on Danse</span></div>
+								<div class="col-3 artist"><span>Artist: </span><span>Stromae</span></div>
+								<div class="col-3 album"><span>Album: </span><span>Cheese</span></div>
+								<div class="col-3 genre"><span>Genre: </span><span>Hip House</span></div>
+								<div class="col-3 length"><span>Length: </span><span>3:26</span></div>
+							</div>
+						</div>
+						<div id="result2" class="rec-cont">
+							<div class="col-2 col-lg-1 image-cont">
+								<img src="Pics/alors-on-danse-cover.jpeg" alt="album cover">
+							</div>
+							<div class="col-10 col-lg-11 details-cont">
+								<div class="col-12 title"><span>Title: </span><span>Alors on Danse</span></div>
+								<div class="col-3 artist"><span>Artist: </span><span>Stromae</span></div>
+								<div class="col-3 album"><span>Album: </span><span>Cheese</span></div>
+								<div class="col-3 genre"><span>Genre: </span><span>Hip House</span></div>
+								<div class="col-3 length"><span>Length: </span><span>3:26</span></div>
+							</div>
+						</div>
+						<div id="result3" class="rec-cont">
+							<div class="col-2 col-lg-1 image-cont">
+								<img src="Pics/alors-on-danse-cover.jpeg" alt="album cover">
+							</div>
+							<div class="col-10 col-lg-11 details-cont">
+								<div class="col-12 title"><span>Title: </span><span>Alors on Danse</span></div>
+								<div class="col-3 artist"><span>Artist: </span><span>Stromae</span></div>
+								<div class="col-3 album"><span>Album: </span><span>Cheese</span></div>
+								<div class="col-3 genre"><span>Genre: </span><span>Hip House</span></div>
+								<div class="col-3 length"><span>Length: </span><span>3:26</span></div>
+							</div>
+						</div>
+						<div id="result4" class="rec-cont">
+							<div class="col-2 col-lg-1 image-cont">
+								<img src="Pics/alors-on-danse-cover.jpeg" alt="album cover">
+							</div>
+							<div class="col-10 col-lg-11 details-cont">
+								<div class="col-12 title"><span>Title: </span><span>Alors on Danse</span></div>
+								<div class="col-3 artist"><span>Artist: </span><span>Stromae</span></div>
+								<div class="col-3 album"><span>Album: </span><span>Cheese</span></div>
+								<div class="col-3 genre"><span>Genre: </span><span>Hip House</span></div>
+								<div class="col-3 length"><span>Length: </span><span>3:26</span></div>
+							</div>
+						</div>
+						<div id="result5" class="rec-cont">
+							<div class="col-2 col-lg-1 image-cont">
+								<img src="Pics/alors-on-danse-cover.jpeg" alt="album cover">
+							</div>
+							<div class="col-10 col-lg-11 details-cont">
+								<div class="col-12 title"><span>Title: </span><span>Alors on Danse</span></div>
+								<div class="col-3 artist"><span>Artist: </span><span>Stromae</span></div>
+								<div class="col-3 album"><span>Album: </span><span>Cheese</span></div>
+								<div class="col-3 genre"><span>Genre: </span><span>Hip House</span></div>
+								<div class="col-3 length"><span>Length: </span><span>3:26</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// Initialize Pyodide
+async function loadPyodideAndPackages() {
+    let pyodide = await loadPyodide(); // Load Pyodide environment
+	await pyodide.loadPackage("pandas"); // Load pandas module
+    return pyodide;
+}
+
+document.getElementById('runPythonBtn').addEventListener('click', async function() {
+	// Wait for Pyodide to be ready and pandas to be loaded
+	let pyodide = await loadPyodideAndPackages();
+
+     // Run a Python script
+    const pythonCode = `
+import pickle
+import pandas as pd
+import spotipy
+
+#connection to Spotify Web api
+from spotipy.oauth2 import SpotifyClientCredentials
+secrets_file = open("spotifyclientkevin.txt","r")
+string = secrets_file.read()
+secrets_dict={}
+for line in string.split('\\n'):
+    if len(line) > 0:
+        #print(line.split(':'))
+        secrets_dict[line.split(':')[0]]=line.split(':')[1].strip()
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=secrets_dict['clientid'],
+                                                           client_secret=secrets_dict['clientsecret']))
+
+#load model
+with open('kmeans_model_20clusters.pkl', 'rb') as file:
+    kmeans = pickle.load(file)
+
+#load scaler
+with open('scaler_minmax.pkl', 'rb') as file:
+    scaler = pickle.load(file)
+
+#load library
+our_library = pd.read_csv('our_library.csv')
+
+def ms_to_mm_ss(ms): # a small converter turning miliseconds into 'minute:seconds' time display format
+    seconds = ms // 1000
+    minutes, seconds = divmod(seconds, 60)
+    return f"{minutes:02}:{seconds:02}"
+
+#-------------------------------------------------------- Query Song info retriever -------------------------------------------------------
+def search_song(song):
+    query = str(song)
+    searched_song = sp.search(q=query, limit=1)
+    
+    searched_song_name = searched_song['tracks']['items'][0]['name']
+    searched_song_artist = searched_song['tracks']['items'][0]['artists'][0]['name']
+    searched_song_album = searched_song['tracks']['items'][0]['album']['name']
+    searched_song_length_ms = searched_song['tracks']['items'][0]['duration_ms']
+    searched_song_length_mm_ss = ms_to_mm_ss(searched_song_length_ms)
+    searched_song_release_date = searched_song['tracks']['items'][0]['album']['release_date']
+    searched_song_cover_image = searched_song['tracks']['items'][0]['album']['images'][0]['url']
+    searched_song_id = searched_song['tracks']['items'][0]['id']
+    
+    servo_dictionary = {'name':searched_song_name,
+                        'artist':searched_song_artist,
+                        'album':searched_song_album,
+                        'length_ms':searched_song_length_ms,
+                        'mm_ss':searched_song_length_mm_ss,
+                        'release_date':searched_song_release_date,
+                        'cover_image':searched_song_cover_image,
+                        'song_id':searched_song_id}
+    return servo_dictionary
+
+#--------------------------------------------------------Song Feature retriever -------------------------------------------------------
+
+def retrive_pred_feature(song):    
+    featdf = pd.DataFrame(sp.audio_features(search_song(song)['song_id']))
+    resdf = featdf[['danceability','energy','key','loudness','mode','speechiness','acousticness','instrumentalness','liveness','valence','tempo']]
+    return resdf
+
+#---------------------------------------------------------Cluster recommender--------------------------------------------------------
+
+def cluster_recommend(song, n=5):
+    from random import sample
+    song_features = retrive_pred_feature(song)
+    
+    X_pred = scaler.transform(song_features)
+    
+    res_cluster = kmeans.predict(X_pred) # the result cluster (just a number) for the input song is here
+    
+    same_cluster_songs = our_library[our_library['cluster'] == res_cluster[0]].reset_index(drop=True) # gets dataframe of all songs in same cluster
+
+    randindex_list = sample(list(range(len(same_cluster_songs))),n)
+    output_songs = same_cluster_songs.iloc[randindex_list]
+    
+    output = output_songs[['song_name','name','song_id']]
+    #print('|Song:|  '+output[0]+'  |Artist:|  '+output[1])
+    
+    return output
+
+#---------------------------------------------------------Output Compiling-------------------------------------------------------
+
+def recommender(x=None):
+    if x == None:
+        song = input('Enter a song to hear our recommendation: ')
+    else:
+        song = x
+        
+    output_dictionary = {}
+    
+    song_name = str(song).lower() #This makes all the input a lowercase string value, as far as I am concerned, this should not cause any problem and makes it convenient for comparison
+    returned_tracks = cluster_recommend(song_name)
+    output_dictionary['searched_song'] = search_song(song)
+    
+    tracks_info = sp.tracks(returned_tracks['song_id'])#Another call to spotify api to get track info for recommended songs
+    servo_list = []
+    for track in tracks_info['tracks']:
+            name = track['name']
+            artist = track['artists'][0]['name']
+            album = track['album']['name']
+            length_ms = track['duration_ms']
+            length_mm_ss = ms_to_mm_ss(length_ms)
+            release_date = track['album']['release_date']
+            cover_image = track['album']['images'][0]['url']
+            song_id = track['id']
+
+            servo_list.append({'name':name,
+                                'artist':artist,
+                                'album':album,
+                                'length_ms':length_ms,
+                                'mm_ss':length_mm_ss,
+                                'release_date':release_date,
+                                'cover_image':cover_image,
+                                'song_id':song_id})
+    
+    output_dictionary['recommended_songs'] = servo_list
+        
+    return output_dictionary
+
+recommender()
+`;
+    // Execute the Python code
+    let result = await pyodide.runPythonAsync(pythonCode);
+
+    // Display the result
+    document.getElementById('result').innerText = result;
+});
+	</script>
+</body>
+</html>

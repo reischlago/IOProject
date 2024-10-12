@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="/static/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/style.css" />
+	<script src="/static/jquery-3.6.0.min.js"> </script>
+	<script src="/static/bootstrap.min.js"> </script>
+	<script src="/static/script.js"> </script>
+    <title>Spotify Song Recommender</title>
+</head>
+<body class="body main-page" style="height: 100%;">
+	<div id="topHeader" class="top-header">
+		<div class="container">
+			<div class="row">
+				<div class="menu col-12">
+					<div class="col-12 col-md-3 col-lg-2"><a href="/">Home</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="history.html">History</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="#">Help</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="#">Profile</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-container">
+		<div class="container" id="searchbar-cont">
+			<div class="row">
+				<div class="col-12 col-md-10 col-lg-8 input-cont">
+					<form id="recommendationForm">
+						<!--label for="inputData">Enter data for recommendation:</label-->
+						<input type="text" id="inputData" name="inputData" required class="col-9 searchbar-input" placeholder="Type the title of the song here">
+						<button type="submit" class="col-2 search-button" onclick="searchSong()">Search</button>
+					</form>
+                </div>
+				<div id="results" class="col-12 col-md-10 col-lg-8 result-cont"></div>
+				<script>
+					$(document).ready(function() {
+						$('#recommendationForm').on('submit', function(e) {
+							e.preventDefault(); // Prevent the default form submission
+
+							const inputData = $('#inputData').val(); // Get input data
+
+							$.ajax({
+								url: '/recommend',
+								type: 'POST',
+								contentType: 'application/json',
+								data: JSON.stringify({ data: inputData }), // Send data as JSON
+								//contentType: 'text/plain', // Sending as plain text
+                				//data: inputData, // Send data directly as a string
+								success: function(response) {
+									console.log(response);  // Log the response to inspect the structure
+
+									if (response.status === "success") {
+										const recommendations = response.recommendations;
+
+										let resultHTML = '';
+
+										// Check if 'searched_song' exists and display its details
+										if (recommendations.searched_song) {
+											const song = recommendations.searched_song;
+											resultHTML += `<div class="result-match">
+												<div class="col-2 image-cont">
+													<img src="${song.cover_image}" alt="album cover">
+												</div>
+												<div class="col-10 details-cont">
+													<div class="col-12 title"><span>Title: </span><span>${song.name}</span></div>
+													<div class="col-6 artist"><span>Artist: </span><span>${song.artist}</span></div>
+													<div class="col-6 length"><span>Length: </span><span>${song.mm_ss}</span></div>
+													<div class="col-6 album"><span>Album: </span><span>${song.album}</span></div>
+													<div class="col-6 year"><span>Year: </span><span>${song.release_date}</span></div>
+													<!--div class="col-6 genre"><span>Genre: </span><span>Hip House</span></div>
+													<div class="col-6 label"><span>Label: </span><span>Vertigo</span></div-->
+												</div>
+												<a href="https://open.spotify.com/track/${song.song_id}" target="_blank">Link to the song</a>
+											</div>`
+                                            let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                                            history.push(resultHTML);
+                                            localStorage.setItem('searchHistory', JSON.stringify(history));
+										}
+
+										// Check if 'recommended_songs' exists and iterate through the list
+										if (Array.isArray(recommendations.recommended_songs)) {
+											resultHTML += `<h2>Recommended Songs:</h2><div class="result-recommend">`;
+											recommendations.recommended_songs.forEach(track => {
+												resultHTML += `<div class="rec-cont">
+													<div class="col-2 col-lg-1 image-cont">
+														<img src="${track.cover_image}" alt="album cover">
+													</div>
+													<div class="col-10 col-lg-11 details-cont">
+														<div class="col-12 title"><span>Title: </span><span>${track.name}</span></div>
+														<div class="col-3 artist"><span>Artist: </span><span>${track.artist}</span></div>
+														<div class="col-3 album"><span>Album: </span><span>${track.album}</span></div>
+														<div class="col-3 releaseDate"><span>Release Date: </span><span>${track.release_date}</span></div>
+														<div class="col-3 length"><span>Length: </span><span>${track.mm_ss}</span></div>
+													</div>
+													<a href="https://open.spotify.com/track/${track.song_id}" target="_blank">Link to the song</a>
+												</div>`;
+											});
+											resultHTML += `</div>`;
+										} else {
+											resultHTML += '<p>No recommendations available.</p>';
+										}
+
+										// Insert the result into the DOM
+										$('#results').html(resultHTML);
+									} else {
+										$('#results').html('<p>No recommendations found.</p>');
+									}
+								},
+								error: function() {
+									$('#results').html('<p>An error occurred while fetching recommendations.</p>');
+								}
+							});
+           				 });
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

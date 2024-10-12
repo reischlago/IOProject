@@ -1,0 +1,76 @@
+#submit-to-google-sheet{
+  width: auto;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 50px 20px 23px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+#submit-to-google-sheet:hover{
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+} 
+#submit-to-google-sheet label{
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1em;
+}
+#submit-to-google-sheet input, #submit-to-google-sheet textarea{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 1em;
+  transition: border 0.3s ease;
+}
+#submit-to-google-sheet input:focus, #submit-to-google-sheet textarea:focus{
+  border-color: #007BFF;
+  outline: none;
+}
+#submit-to-google-sheet button{
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+#submit-to-google-sheet button:hover{
+  background-color: #0056b3;
+}
+#sending-message, #success-message{
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+#sending-message{
+  background-color: #ffcc00;
+  color: #333;
+}
+#success-message{
+  background-color: #28a745;
+  color: #fff;
+}
+@media (max-width: 600px){
+  #submit-to-google-sheet{
+    box-shadow: none;
+    border: none;
+  }
+  #submit-to-google-sheet label{
+    font-size: 0.9em;
+  }
+  #submit-to-google-sheet input, #submit-to-google-sheet textarea {
+    font-size: 0.8em;
+  }
+  #submit-to-google-sheet button{
+    font-size: 0.8em;
+  }
+}

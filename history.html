@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="/static/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/style.css" />
+	<script src="/static/jquery-3.6.0.min.js"> </script>
+	<script src="/static/bootstrap.min.js"> </script>
+	<script src="/static/script.js"> </script>
+	<script>
+		window.onload = function() {
+			loadSearchHistory();
+		};
+	</script>
+    <title>Spotify Song Recommender</title>
+</head>
+<body class="body main-page" style="height: 100%;">
+	<div id="topHeader" class="top-header">
+		<div class="container">
+			<div class="row">
+				<div class="menu col-12">
+					<div class="col-12 col-md-3 col-lg-2"><a href="/">Home</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="/history">History</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="#">Help</a></div>
+					<div class="col-12 col-md-3 col-lg-2"><a href="#">Profile</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-container">
+		<div class="container" id="history-cont">
+			<div class="row">
+                <div class="col-12 col-md-10 col-lg-8 result-cont" id="searchHistory"></div>
+                <div class="delete-history"><button onclick="deleteHistory()">Clear history</button></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
